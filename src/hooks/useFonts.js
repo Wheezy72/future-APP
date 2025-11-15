@@ -1,27 +1,14 @@
 import { useEffect, useState } from 'react';
-import * as Font from 'expo-font';
 
+/**
+ * Use system fonts to avoid bundling local binaries.
+ * You can later integrate @expo-google-fonts or add local assets.
+ */
 export default function useFonts() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    let mounted = true;
-    (async () => {
-      try {
-        await Font.loadAsync({
-          Orbitron: require('../../assets/fonts/Orbitron-Regular.ttf'),
-          Rajdhani: require('../../assets/fonts/Rajdhani-Regular.ttf'),
-          ShareTechMono: require('../../assets/fonts/ShareTechMono-Regular.ttf'),
-          Caveat: require('../../assets/fonts/Caveat-Regular.ttf'),
-        });
-        if (mounted) setLoaded(true);
-      } catch {
-        setLoaded(true);
-      }
-    })();
-    return () => {
-      mounted = false;
-    };
+    setLoaded(true);
   }, []);
 
   return loaded;
