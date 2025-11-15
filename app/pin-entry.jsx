@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useTheme } from '../src/constants/theme';
 import { getPIN, setPIN, getBiometricsEnabled, setBiometricsEnabled } from '../src/services/auth';
 import Keypad from '../src/components/Keypad';
+import ThemedText from '../src/components/ThemedText';
 import * as Haptics from 'expo-haptics';
 
 export default function PinEntry() {
@@ -86,9 +87,9 @@ export default function PinEntry() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg, paddingHorizontal: 24, alignItems: 'center', justifyContent: 'center' }}>
       <Ionicons name="shield-checkmark" size={56} color={colors.accent} />
-      <Text style={{ color: colors.text, marginTop: 12, fontSize: 18, fontFamily: 'Orbitron' }}>
+      <ThemedText variant="heading" style={{ color: colors.text, marginTop: 12, fontSize: 18 }}>
         {mode === 'create' ? 'Create 4-digit PIN' : 'Enter PIN'}
-      </Text>
+      </ThemedText>
 
       <View style={{ flexDirection: 'row', marginTop: 24, gap: 12 }}>
         {[0,1,2,3].map((i) => (

@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
+import ThemedText from '../../src/components/ThemedText';
 import {
   listGoals,
   addGoal,
@@ -77,7 +78,7 @@ export default function GoalsJournal() {
       keyExtractor={(g) => g.id}
       ListHeaderComponent={
         <>
-          <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron', marginBottom: 12 }}>Goals</Text>
+          <ThemedText variant="heading" style={{ color: colors.text, fontSize: 22, marginBottom: 12 }}>Goals</ThemedText>
           <GlassCard>
             <TextInput
               placeholder="Goal Title"
@@ -86,7 +87,7 @@ export default function GoalsJournal() {
               onChangeText={setGoalTitle}
               style={{
                 color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
               }}
             />
             <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
@@ -98,7 +99,7 @@ export default function GoalsJournal() {
                 onChangeText={setGoalTarget}
                 style={{
                   flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                 }}
               />
               <TextInput
@@ -108,7 +109,7 @@ export default function GoalsJournal() {
                 onChangeText={setGoalCategory}
                 style={{
                   flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                 }}
               />
             </View>
@@ -119,11 +120,11 @@ export default function GoalsJournal() {
                 paddingVertical: 10, alignItems: 'center'
               }}
             >
-              <Text style={{ color: colors.accent }}>Add Goal</Text>
+              <ThemedText style={{ color: colors.accent }}>Add Goal</ThemedText>
             </TouchableOpacity>
           </GlassCard>
 
-          <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron', marginTop: 16 }}>Journal</Text>
+          <ThemedText variant="heading" style={{ color: colors.text, fontSize: 22, marginTop: 16 }}>Journal</ThemedText>
           <GlassCard>
             <TextInput
               placeholder="Write something..."
@@ -134,7 +135,7 @@ export default function GoalsJournal() {
               style={{
                 color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
                 borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 10, minHeight: 80,
-                fontSize: 16
+                fontSize: 16, fontFamily: 'Rajdhani'
               }}
             />
             <View style={{ flexDirection: 'row', gap: 8, marginTop: 8, alignItems: 'center' }}>
@@ -145,7 +146,7 @@ export default function GoalsJournal() {
                   paddingHorizontal: 12, paddingVertical: 8
                 }}
               >
-                <Text style={{ color: colors.text }}>Attach Photo</Text>
+                <ThemedText style={{ color: colors.text }}>Attach Photo</ThemedText>
               </TouchableOpacity>
               <TextInput
                 placeholder="Mood (🙂, 😌, 😔)"
@@ -154,7 +155,7 @@ export default function GoalsJournal() {
                 onChangeText={setJournalMood}
                 style={{
                   flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                 }}
               />
               <TouchableOpacity
@@ -164,24 +165,24 @@ export default function GoalsJournal() {
                   paddingHorizontal: 12, paddingVertical: 8
                 }}
               >
-                <Text style={{ color: colors.accent }}>Save</Text>
+                <ThemedText style={{ color: colors.accent }}>Save</ThemedText>
               </TouchableOpacity>
             </View>
           </GlassCard>
 
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'Rajdhani', marginTop: 14 }}>Your Goals</Text>
+          <ThemedText style={{ color: colors.text, fontSize: 20, marginTop: 14 }}>Your Goals</ThemedText>
         </>
       }
       renderItem={({ item }) => {
         const pct = Math.min(100, Math.round((item.progress / item.target) * 100));
         return (
           <GlassCard style={{ marginTop: 10 }}>
-            <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{item.title}</Text>
-            <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>
-              <Text style={{ fontFamily: 'ShareTechMono', color: colors.subtext }}>{item.progress}</Text>
+            <ThemedText style={{ color: colors.text }}>{item.title}</ThemedText>
+            <ThemedText style={{ color: colors.subtext }}>
+              <ThemedText variant="mono" style={{ color: colors.subtext }}>{item.progress}</ThemedText>
               {' '} / {' '}
-              <Text style={{ fontFamily: 'ShareTechMono', color: colors.subtext }}>{item.target}</Text>
-            </Text>
+              <ThemedText variant="mono" style={{ color: colors.subtext }}>{item.target}</ThemedText>
+            </ThemedText>
             <View style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, overflow: 'hidden', marginTop: 4 }}>
               <View style={{ width: `${pct}%`, height: 8, backgroundColor: colors.success }} />
             </View>
@@ -192,18 +193,18 @@ export default function GoalsJournal() {
                 paddingVertical: 8, alignItems: 'center'
               }}
             >
-              <Text style={{ color: colors.text }}>+1 Progress</Text>
+              <ThemedText style={{ color: colors.text }}>+1 Progress</ThemedText>
             </TouchableOpacity>
           </GlassCard>
         );
       }}
       ListFooterComponent={
         <>
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'Rajdhani', marginTop: 14 }}>Journal Entries</Text>
+          <ThemedText style={{ color: colors.text, fontSize: 20, marginTop: 14 }}>Journal Entries</ThemedText>
           {entries.map((e) => (
             <GlassCard key={e.id} style={{ marginTop: 10 }}>
-              <Text style={{ color: colors.text, fontSize: 16 }}>{e.text}</Text>
-              <Text style={{ color: colors.subtext, marginTop: 4 }}>{e.mood} — {new Date(e.date).toLocaleString()}</Text>
+              <ThemedText style={{ color: colors.text, fontSize: 16 }}>{e.text}</ThemedText>
+              <ThemedText style={{ color: colors.subtext, marginTop: 4 }}>{e.mood} — {new Date(e.date).toLocaleString()}</ThemedText>
               {e.imageUri ? (
                 <View style={{ marginTop: 8, alignSelf: 'flex-start' }}>
                   <Image source={{ uri: e.imageUri }} style={{ width: 160, height: 120, borderRadius: 6 }} />

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
+import ThemedText from '../../src/components/ThemedText';
 import * as Haptics from 'expo-haptics';
 import { logMood, listMoods } from '../../src/services/wellness';
 import Animated, { useSharedValue, useAnimatedStyle, withSequence, withTiming, withDelay } from 'react-native-reanimated';
@@ -75,7 +76,7 @@ export default function Wellness() {
                 borderWidth: 1, borderColor: mood === m ? colors.accent : colors.border
               }}
             >
-              <Text style={{ color: mood === m ? colors.accent : colors.text, fontFamily: 'Rajdhani' }}>{m}</Text>
+              <ThemedText style={{ color: mood === m ? colors.accent : colors.text }}>{m}</ThemedText>
             </TouchableOpacity>
           ))}
         </View>
@@ -86,7 +87,7 @@ export default function Wellness() {
             paddingVertical: 10, alignItems: 'center'
           }}
         >
-          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>Log Mood</Text>
+          <ThemedText style={{ color: colors.text }}>Log Mood</ThemedText>
         </TouchableOpacity>
       </GlassCard>
 
@@ -107,7 +108,7 @@ export default function Wellness() {
                 borderWidth: 1, borderColor: pattern === p.id ? colors.accent : colors.border
               }}
             >
-              <Text style={{ color: pattern === p.id ? colors.accent : colors.text }}>{p.label}</Text>
+              <ThemedText style={{ color: pattern === p.id ? colors.accent : colors.text }}>{p.label}</ThemedText>
             </TouchableOpacity>
           ))}
         </View>
@@ -128,7 +129,7 @@ export default function Wellness() {
                 paddingHorizontal: 16, paddingVertical: 10, alignItems: 'center'
               }}
             >
-              <Text style={{ color: colors.accent }}>Start Session</Text>
+              <ThemedText style={{ color: colors.accent }}>Start Session</ThemedText>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
@@ -139,7 +140,7 @@ export default function Wellness() {
                 paddingHorizontal: 16, paddingVertical: 10, alignItems: 'center'
               }}
             >
-              <Text style={{ color: colors.text }}>Stop Session</Text>
+              <ThemedText style={{ color: colors.text }}>Stop Session</ThemedText>
             </TouchableOpacity>
           )}
         </View>

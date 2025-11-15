@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, TouchableOpacity, FlatList } from 'react-native';
 import { useTheme } from '../src/constants/theme';
 import GlassCard from '../src/components/GlassCard';
+import ThemedText from '../src/components/ThemedText';
 import { listScheduled, cancelScheduled, scheduleDaily } from '../src/services/notifications';
 
 export default function NotificationsCenter() {
@@ -29,7 +30,7 @@ export default function NotificationsCenter() {
       keyExtractor={(i) => i.identifier}
       ListHeaderComponent={
         <>
-          <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron' }}>Notifications</Text>
+          <ThemedText variant="heading" style={{ color: colors.text, fontSize: 22 }}>Notifications</ThemedText>
           <GlassCard style={{ marginTop: 10 }}>
             <TouchableOpacity
               onPress={scheduleExample}
@@ -38,15 +39,15 @@ export default function NotificationsCenter() {
                 paddingHorizontal: 12, paddingVertical: 10, alignItems: 'center'
               }}
             >
-              <Text style={{ color: colors.accent }}>Schedule Example Habit</Text>
+              <ThemedText style={{ color: colors.accent }}>Schedule Example Habit</ThemedText>
             </TouchableOpacity>
           </GlassCard>
         </>
       }
       renderItem={({ item }) => (
         <GlassCard style={{ marginTop: 10 }}>
-          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{item.content?.title || 'Reminder'}</Text>
-          <Text style={{ color: colors.subtext, fontFamily: 'ShareTechMono' }}>{item.identifier}</Text>
+          <ThemedText style={{ color: colors.text }}>{item.content?.title || 'Reminder'}</ThemedText>
+          <ThemedText variant="mono" style={{ color: colors.subtext }}>{item.identifier}</ThemedText>
           <TouchableOpacity
             onPress={async () => {
               await cancelScheduled(item.identifier);
@@ -58,7 +59,7 @@ export default function NotificationsCenter() {
               paddingHorizontal: 12, paddingVertical: 8, alignItems: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Cancel</Text>
+            <ThemedText style={{ color: colors.text }}>Cancel</ThemedText>
           </TouchableOpacity>
         </GlassCard>
       )}

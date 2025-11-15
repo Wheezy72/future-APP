@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useTheme } from '../constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import ThemedText from './ThemedText';
 
 export default function Keypad({ onPress, style }) {
   const { colors } = useTheme();
@@ -35,7 +36,7 @@ export default function Keypad({ onPress, style }) {
                     <Ionicons name="finger-print" size={20} color={colors.subtext} />
                   )
                 ) : (
-                  <Text style={{ color: colors.text, fontSize: 18, fontFamily: 'Rajdhani' }}>{k}</Text>
+                  <ThemedText style={{ color: colors.text, fontSize: 18 }}>{k}</ThemedText>
                 )}
               </TouchableOpacity>
             );

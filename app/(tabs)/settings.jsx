@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Switch, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Switch, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
+import ThemedText from '../../src/components/ThemedText';
 import { getBiometricsEnabled, setBiometricsEnabled, getPIN, setPIN } from '../../src/services/auth';
 import { useRouter } from 'expo-router';
 import { getSettings, saveSettings } from '../../src/services/settings';
@@ -45,8 +46,9 @@ export default function Settings() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <View style={{ padding: 16 }}>
-        <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron' }}>Settings</Text>
-      </View>
+       <<ThemedText variant="heading" style={{ color: colors.text, fontSize: 22 }}>Settin</</ThemedText>
+    </>
+V_codeieneww</>
 
       <GlassCard style={{ marginHorizontal: 16 }}>
         <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Security</Text>
@@ -81,7 +83,7 @@ export default function Settings() {
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.accent }}>Save</Text>
+            <ThemedText style={{ color: colors.accent }}>Save</ThemedText>
           </TouchableOpacity>
         </View>
       </GlassCard>
@@ -114,7 +116,7 @@ export default function Settings() {
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Save Cloud</Text>
+            <ThemedText style={{ color: colors.text }}>Save Cloud</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
@@ -126,13 +128,13 @@ export default function Settings() {
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.accent }}>Sync Now</Text>
+            <ThemedText style={{ color: colors.accent }}>Sync Now</ThemedText>
           </TouchableOpacity>
         </View>
       </GlassCard>
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>
-        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Backup</Text>
+        <ThemedText style={{ color: colors.subtext }}>Backup</ThemedText>
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
           <TouchableOpacity
             onPress={async () => {
@@ -145,7 +147,7 @@ export default function Settings() {
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Export JSON</Text>
+            <ThemedText style={{ color: colors.text }}>Export JSON</ThemedText>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
@@ -164,13 +166,13 @@ export default function Settings() {
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Import Latest</Text>
+            <ThemedText style={{ color: colors.text }}>Import Latest</ThemedText>
           </TouchableOpacity>
         </View>
         {backups.length > 0 && (
-          <Text style={{ color: colors.subtext, marginTop: 8 }}>
+          <ThemedText style={{ color: colors.subtext, marginTop: 8 }}>
             Backups: {backups.length} files in app documents.
-          </Text>
+          </ThemedText>
         )}
       </GlassCard>
 
