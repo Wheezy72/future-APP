@@ -4,9 +4,8 @@ import { useTheme } from '../../src/constants/theme';
 import Finance from './finance';
 import GoalsJournal from './goals-journal';
 import Wellness from './wellness';
-import Social from './social';
 
-const segments = ['Finance', 'Goals & Journal', 'Wellness', 'Social'];
+const segments = ['Finance', 'Goals & Journal', 'Wellness'];
 
 export default function Manage() {
   const { colors } = useTheme();
@@ -35,7 +34,6 @@ export default function Manage() {
         {seg === 0 && <Finance />}
         {seg === 1 && <GoalsJournal />}
         {seg === 2 && <Wellness />}
-        {seg === 3 && <Social />}
       </View>
     </View>
   );
