@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Switch, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, Switch, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
-import { Ionicons } from '@expo/vector-icons';
 import { getBiometricsEnabled, setBiometricsEnabled, getPIN, setPIN } from '../../src/services/auth';
 import { useRouter } from 'expo-router';
+import { getSettings, saveSettings } from '../../src/services/settings';
+import { syncNow } from '../../src/services/sync';
+import { exportBackup, importBackupFromPath, listBackups } from '../../src/services/backup';
 
 export default function Settings() {
   const { colors } = useTheme();
   const router = useRouter();
   const [bioEnabled, setBioEnabledState] = useState(false);
   const [pin, setPinState] = useState('');
+  const [cloudEnabled, setCloudEnabled] = useState(false);
   const [baseUrl, setBaseUrl] = useState('');
+  const [backups, setBackups] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -19,12 +23,23 @@ export default function Settings() {
       setBioEnabledState(!!b);
       const p = await getPIN();
       setPinState(p || '');
+      const s = await getSettings();
+      setCloudEnabled(!!s.cloudEnabled);
+      setBaseUrl(s.cloudBaseUrl || '');
+      setBackups(await listBackups());
     })();
   }, []);
 
   const savePIN = async () => {
     if (!pin || pin.length !== 4) return;
     await setPIN(pin);
+    Alert.alert('PIN', 'PIN updated.');
+  };
+
+  const saveCloud = async () => {
+    const provider = baseUrl === 'firebase' ? 'firebase' : 'rest';
+    await saveSettings({ cloudEnabled, cloudBaseUrl: baseUrl, cloudProvider: provider });
+    Alert.alert('Cloud', 'Settings saved.');
   };
 
   return (
@@ -73,6 +88,14 @@ export default function Settings() {
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>
         <Text style={{ color: colors.subtext }}>Cloud Sync</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
+          <Text style={{ color: colors.text }}>Enabled</Text>
+          <Switch
+            value={cloudEnabled}
+            onValueChange={(v) => setCloudEnabled(v)}
+            thumbColor={cloudEnabled ? colors.accent : '#fff'}
+          />
+        </View>
         <TextInput
           placeholder="Base URL (REST) or 'firebase'"
           placeholderTextColor={colors.subtext}
@@ -85,33 +108,70 @@ export default function Settings() {
         />
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={saveCloud}
             style={{
               backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderRadius: 10,
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Init</Text>
+            <Text style={{ color: colors.text }}>Save Cloud</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={async () => {
+              const res = await syncNow();
+              Alert.alert('Sync', res.ok ? 'Sync completed.' : ('Could not sync: ' + (res.error || res.reason)));
+            }}
             style={{
-              backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderRadius: 10,
+              backgroundColor: 'rgba(0,224,255,0.12)', borderColor: colors.accent, borderWidth: 1, borderRadius: 10,
               paddingHorizontal: 12, justifyContent: 'center'
             }}
           >
-            <Text style={{ color: colors.text }}>Push</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {}}
-            style={{
-              backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderRadius: 10,
-              paddingHorizontal: 12, justifyContent: 'center'
-            }}
-          >
-            <Text style={{ color: colors.text }}>Pull</Text>
+            <Text style={{ color: colors.accent }}>Sync Now</Text>
           </TouchableOpacity>
         </View>
+      </GlassCard>
+
+      <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>
+        <Text style={{ color: colors.subtext }}>Backup</Text>
+        <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
+          <TouchableOpacity
+            onPress={async () => {
+              const { path, name } = await exportBackup();
+              setBackups(await listBackups());
+              Alert.alert('Backup', `Exported to:\n${path}`);
+            }}
+            style={{
+              backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderRadius: 10,
+              paddingHorizontal: 12, justifyContent: 'center'
+            }}
+          >
+            <Text style={{ color: colors.text }}>Export JSON</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={async () => {
+              const files = await listBackups();
+              if (!files.length) {
+                Alert.alert('Backup', 'No backups found.');
+                return;
+              }
+              const latest = files.sort().pop();
+              const path = `${require('expo-file-system').documentDirectory}${latest}`;
+              await importBackupFromPath(path);
+              Alert.alert('Backup', 'Imported latest backup.');
+            }}
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.06)', borderColor: colors.border, borderWidth: 1, borderRadius: 10,
+              paddingHorizontal: 12, justifyContent: 'center'
+            }}
+          >
+            <Text style={{ color: colors.text }}>Import Latest</Text>
+          </TouchableOpacity>
+        </View>
+        {backups.length > 0 && (
+          <Text style={{ color: colors.subtext, marginTop: 8 }}>
+            Backups: {backups.length} files in app documents.
+          </Text>
+        )}
       </GlassCard>
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>

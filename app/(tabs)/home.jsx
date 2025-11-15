@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
 import { getTodayStats } from '../../src/services/data';
 import * as Haptics from 'expo-haptics';
+import { syncNow } from '../../src/services/sync';
 
 export default function Home() {
   const { colors } = useTheme();
@@ -14,6 +15,12 @@ export default function Home() {
     (async () => {
       const s = await getTodayStats();
       setStats(s);
+      // Attempt background sync on home load
+      const res = await syncNow();
+      if (!res.ok && res.reason !== 'disabled') {
+        // silent fail; optionally surface a small alert
+        // Alert.alert('Sync', 'Could not sync: ' + (res.error || res.reason));
+      }
     })();
   }, []);
 
@@ -63,6 +70,32 @@ export default function Home() {
           }}
         >
           <Text style={{ color: colors.text }}>Schedule Mindfulness</Text>
+        </TouchableOpacity>
+      </GlassCard>
+
+      <GlassCard style={{ marginTop: 16 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <Ionicons name="cloud-upload" color={colors.accent} size={18} />
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani', fontSize: 16 }}>
+            Cloud Sync
+          </Text>
+        </View>
+        <TouchableOpacity
+          onPress={async () => {
+            const res = await syncNow();
+            if (res.ok) {
+              Alert.alert('Sync', 'Sync completed.');
+            } else {
+              Alert.alert('Sync', 'Could not sync: ' + (res.error || res.reason));
+            }
+          }}
+          style={{
+            marginTop: 8,
+            backgroundColor: colors.card, borderColor: colors.border, borderWidth: 1, borderRadius: 10,
+            paddingHorizontal: 12, paddingVertical: 8, alignItems: 'center', alignSelf: 'flex-start'
+          }}
+        >
+          <Text style={{ color: colors.text }}>Sync Now</Text>
         </TouchableOpacity>
       </GlassCard>
     </ScrollView>
