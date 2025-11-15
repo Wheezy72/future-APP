@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
+import ThemedText from '../../src/components/ThemedText';
 import * as Haptics from 'expo-haptics';
 import {
   listExpenses,
@@ -128,12 +129,12 @@ export default function Finance() {
       keyExtractor={(item) => item.id}
       ListHeaderComponent={
         <>
-          <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron', marginBottom: 12 }}>
+          <ThemedText variant="heading" style={{ color: colors.text, fontSize: 22, marginBottom: 12 }}>
             Expenses
-          </Text>
+          </ThemedText>
 
           <GlassCard>
-            <Text style={{ color: colors.subtext, marginBottom: 8, fontFamily: 'Rajdhani' }}>Add Expense</Text>
+            <ThemedText style={{ color: colors.subtext, marginBottom: 8 }}>Add Expense</ThemedText>
             <View style={{ flexDirection: 'row', gap: 8 }}>
               <TextInput
                 placeholder="Amount"
@@ -143,7 +144,7 @@ export default function Finance() {
                 onChangeText={setAmount}
                 style={{
                   flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                 }}
               />
               <TextInput
@@ -153,7 +154,7 @@ export default function Finance() {
                 onChangeText={setCategory}
                 style={{
                   flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                  borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                 }}
               />
             </View>
@@ -164,7 +165,7 @@ export default function Finance() {
               onChangeText={setNote}
               style={{
                 marginTop: 8, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
               }}
             />
             <View style={{ flexDirection: 'row', gap: 8, marginTop: 10 }}>
@@ -175,7 +176,7 @@ export default function Finance() {
                   paddingVertical: 10, alignItems: 'center'
                 }}
               >
-                <Text style={{ color: colors.text }}>Add</Text>
+                <ThemedText style={{ color: colors.text }}>Add</ThemedText>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={setBudgetForCategory}
@@ -184,7 +185,7 @@ export default function Finance() {
                   paddingVertical: 10, alignItems: 'center'
                 }}
               >
-                <Text style={{ color: colors.accent }}>Set Budget</Text>
+                <ThemedText style={{ color: colors.accent }}>Set Budget</ThemedText>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={addSavings}
@@ -193,7 +194,7 @@ export default function Finance() {
                   paddingVertical: 10, alignItems: 'center'
                 }}
               >
-                <Text style={{ color: colors.text }}>New Savings Goal</Text>
+                <ThemedText style={{ color: colors.text }}>New Savings Goal</ThemedText>
               </TouchableOpacity>
             </View>
 
@@ -208,23 +209,23 @@ export default function Finance() {
                     borderWidth: 1, borderColor: category === c ? colors.accent : colors.border
                   }}
                 >
-                  <Text style={{ color: category === c ? colors.accent : colors.text, fontFamily: 'Rajdhani' }}>{c}</Text>
+                  <ThemedText style={{ color: category === c ? colors.accent : colors.text }}>{c}</ThemedText>
                 </TouchableOpacity>
               ))}
             </View>
           </GlassCard>
 
           <GlassCard style={{ marginTop: 16 }}>
-            <Text style={{ color: colors.subtext, marginBottom: 6 }}>Budgets (This Month)</Text>
+            <ThemedText style={{ color: colors.subtext, marginBottom: 6 }}>Budgets (This Month)</ThemedText>
             {Object.keys(budgets || {}).length === 0 && (
-              <Text style={{ color: colors.subtext }}>No budgets set.</Text>
+              <ThemedText style={{ color: colors.subtext }}>No budgets set.</ThemedText>
             )}
             {Object.entries(budgets || {}).map(([cat, amt]) => {
               const spent = categoryTotals.find((x) => x.category === cat)?.value || 0;
               const pct = Math.min(100, Math.round((spent / amt) * 100));
               return (
                 <View key={cat} style={{ marginVertical: 6 }}>
-                  <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{cat}: <Text style={{ fontFamily: 'ShareTechMono', color: colors.text }}>{spent.toFixed(2)}</Text> / <Text style={{ fontFamily: 'ShareTechMono', color: colors.text }}>{amt.toFixed(2)}</Text></Text>
+                  <ThemedText style={{ color: colors.text }}>{cat}: <ThemedText variant="mono" style={{ color: colors.text }}>{spent.toFixed(2)}</ThemedText> / <ThemedText variant="mono" style={{ color: colors.text }}>{amt.toFixed(2)}</ThemedText></ThemedText>
                   <View style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, overflow: 'hidden', marginTop: 4 }}>
                     <View style={{ width: `${pct}%`, height: 8, backgroundColor: colors.accent }} />
                   </View>
@@ -234,15 +235,15 @@ export default function Finance() {
           </GlassCard>
 
           <GlassCard style={{ marginTop: 16 }}>
-            <Text style={{ color: colors.subtext, marginBottom: 6, fontFamily: 'Rajdhani' }}>Analytics</Text>
-            <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>By Category</Text>
+            <ThemedText style={{ color: colors.subtext, marginBottom: 6 }}>Analytics</ThemedText>
+            <ThemedText style={{ color: colors.text }}>By Category</ThemedText>
             <BarChart
               data={categoryTotals.map((c) => ({ label: c.category, value: c.value }))}
               width={320}
               height={120}
               color={colors.accent}
             />
-            <Text style={{ color: colors.text, marginTop: 8, fontFamily: 'Rajdhani' }}>Monthly Trend</Text>
+            <ThemedText style={{ color: colors.text, marginTop: 8 }}>Monthly Trend</ThemedText>
             <BarChart
               data={monthlyTrend.map((m) => ({ label: m.label, value: m.value }))}
               width={320}
@@ -251,19 +252,19 @@ export default function Finance() {
             />
           </GlassCard>
 
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'Rajdhani', marginTop: 18 }}>Recent</Text>
+          <ThemedText style={{ color: colors.text, fontSize: 20, marginTop: 18 }}>Recent</ThemedText>
         </>
       }
       renderItem={({ item }) => (
         <GlassCard style={{ marginTop: 10 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View>
-              <Text style={{ color: colors.text, fontSize: 16, fontFamily: 'Rajdhani' }}>{item.category}</Text>
-              <Text style={{ color: colors.subtext, fontSize: 12, fontFamily: 'Rajdhani' }}>{new Date(item.date).toLocaleString()}</Text>
-              {item.note ? <Text style={{ color: colors.subtext, marginTop: 4, fontFamily: 'Rajdhani' }}>{item.note}</Text> : null}
+              <ThemedText style={{ color: colors.text, fontSize: 16 }}>{item.category}</ThemedText>
+              <ThemedText style={{ color: colors.subtext, fontSize: 12 }}>{new Date(item.date).toLocaleString()}</ThemedText>
+              {item.note ? <ThemedText style={{ color: colors.subtext, marginTop: 4 }}>{item.note}</ThemedText> : null}
             </View>
             <View style={{ alignItems: 'flex-end' }}>
-              <Text style={{ color: colors.text, fontSize: 18, fontFamily: 'ShareTechMono' }}>{item.amount.toFixed(2)}</Text>
+              <ThemedText variant="mono" style={{ color: colors.text, fontSize: 18 }}>{item.amount.toFixed(2)}</ThemedText>
               <TouchableOpacity onPress={() => onDeleteExpense(item.id)} style={{ marginTop: 8 }}>
                 <Ionicons name="trash" size={18} color={colors.danger} />
               </TouchableOpacity>
@@ -273,18 +274,20 @@ export default function Finance() {
       )}
       ListFooterComponent={
         <>
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'Rajdhani', marginTop: 18 }}>Savings</Text>
+          <ThemedText style={{ color: colors.text, fontSize: 20, marginTop: 18 }}>Savings</ThemedText>
           {savings.length === 0 && (
             <GlassCard style={{ marginTop: 10 }}>
-              <Text style={{ color: colors.subtext }}>No savings goals yet.</Text>
+              <ThemedText style={{ color: colors.subtext }}>No savings goals yet.</ThemedText>
             </GlassCard>
           )}
           {savings.map((g) => {
             const pct = Math.min(100, Math.round((g.saved / g.target) * 100));
             return (
               <GlassCard key={g.id} style={{ marginTop: 10 }}>
-                <Text style={{ color: colors.text }}>{g.name}</Text>
-                <Text style={{ color: colors.subtext }}>{g.saved.toFixed(2)} / {g.target.toFixed(2)}</Text>
+                <ThemedText style={{ color: colors.text }}>{g.name}</ThemedText>
+                <ThemedText style={{ color: colors.subtext }}>
+                  <ThemedText variant="mono">{g.saved.toFixed(2)}</ThemedText> / <ThemedText variant="mono">{g.target.toFixed(2)}</ThemedText>
+                </ThemedText>
                 <View style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, overflow: 'hidden', marginTop: 4 }}>
                   <View style={{ width: `${pct}%`, height: 8, backgroundColor: colors.success }} />
                 </View>
@@ -297,7 +300,7 @@ export default function Finance() {
                     onChangeText={setAmount}
                     style={{
                       flex: 1, color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
-                      borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8
+                      borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, fontFamily: 'Rajdhani'
                     }}
                   />
                   <TouchableOpacity
@@ -307,7 +310,7 @@ export default function Finance() {
                       paddingHorizontal: 16, justifyContent: 'center'
                     }}
                   >
-                    <Text style={{ color: colors.text }}>Contribute</Text>
+                    <ThemedText style={{ color: colors.text }}>Contribute</ThemedText>
                   </TouchableOpacity>
                 </View>
               </GlassCard>

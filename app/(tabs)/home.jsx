@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
+import ThemedText from '../../src/components/ThemedText';
 import { getTodayStats } from '../../src/services/data';
 import * as Haptics from 'expo-haptics';
 import { syncNow } from '../../src/services/sync';
@@ -15,51 +16,50 @@ export default function Home() {
     (async () => {
       const s = await getTodayStats();
       setStats(s);
-      // Attempt background sync on home load
       const res = await syncNow();
       if (!res.ok && res.reason !== 'disabled') {
-        // silent fail; optionally surface a small alert
-        // Alert.alert('Sync', 'Could not sync: ' + (res.error || res.reason));
       }
     })();
   }, []);
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.bg }} contentContainerStyle={{ padding: 16 }}>
-      <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron', marginBottom: 12 }}>
+      <ThemedText variant="heading" style={{ color: colors.text, fontSize: 22, marginBottom: 12 }}>
         Today
-      </Text>
+      </ThemedText>
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <GlassCard>
-          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Goals</Text>
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.goals}</Text>
+          <ThemedText style={{ color: colors.subtext }}>Goals</ThemedText>
+          <ThemedText variant="mono" style={{ color: colors.text, fontSize: 20 }}>{stats.goals}</ThemedText>
         </GlassCard>
         <GlassCard>
-          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Entries</Text>
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.entries}</Text>
+          <ThemedText style={{ color: colors.subtext }}>Entries</ThemedText>
+          <ThemedText variant="mono" style={{ color: colors.text, fontSize: 20 }}>{stats.entries}</ThemedText>
         </GlassCard>
         <GlassCard>
-          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Expenses</Text>
-          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.expenses}</Text>
+          <ThemedText style={{ color: colors.subtext }}>Expenses</ThemedText>
+          <ThemedText variant="mono" style={{ color: colors.text, fontSize: 20 }}>{stats.expenses}</ThemedText>
         </GlassCard>
       </View>
 
       <GlassCard style={{ marginTop: 16 }}>
-        <Text style={{ color: colors.subtext }}>XP</Text>
-        <Text style={{ color: colors.text, fontSize: 20 }}>Level {stats.xpLevel.level} — {stats.xpLevel.xp} XP</Text>
+        <ThemedText style={{ color: colors.subtext }}>XP</ThemedText>
+        <ThemedText style={{ color: colors.text, fontSize: 20 }}>
+          Level {stats.xpLevel.level} — {stats.xpLevel.xp} XP
+        </ThemedText>
       </GlassCard>
 
       <GlassCard style={{ marginTop: 16 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Ionicons name="bulb" color={colors.accent} size={18} />
-          <Text style={{ color: colors.text, fontFamily: 'Rajdhani', fontSize: 16 }}>
+          <ThemedText style={{ color: colors.text, fontSize: 16 }}>
             Smart Insight
-          </Text>
+          </ThemedText>
         </View>
-        <Text style={{ color: colors.subtext, marginTop: 8 }}>
+        <ThemedText style={{ color: colors.subtext, marginTop: 8 }}>
           Try a 4–7–8 breathing session after logging a high expense to reduce stress.
-        </Text>
+        </ThemedText>
         <TouchableOpacity
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -69,25 +69,21 @@ export default function Home() {
             backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, alignSelf: 'flex-start'
           }}
         >
-          <Text style={{ color: colors.text }}>Schedule Mindfulness</Text>
+          <ThemedText style={{ color: colors.text }}>Schedule Mindfulness</ThemedText>
         </TouchableOpacity>
       </GlassCard>
 
       <GlassCard style={{ marginTop: 16 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Ionicons name="cloud-upload" color={colors.accent} size={18} />
-          <Text style={{ color: colors.text, fontFamily: 'Rajdhani', fontSize: 16 }}>
+          <ThemedText style={{ color: colors.text, fontSize: 16 }}>
             Cloud Sync
-          </Text>
+          </ThemedText>
         </View>
         <TouchableOpacity
           onPress={async () => {
             const res = await syncNow();
-            if (res.ok) {
-              Alert.alert('Sync', 'Sync completed.');
-            } else {
-              Alert.alert('Sync', 'Could not sync: ' + (res.error || res.reason));
-            }
+            Alert.alert('Sync', res.ok ? 'Sync completed.' : 'Could not sync: ' + (res.error || res.reason));
           }}
           style={{
             marginTop: 8,
@@ -95,7 +91,7 @@ export default function Home() {
             paddingHorizontal: 12, paddingVertical: 8, alignItems: 'center', alignSelf: 'flex-start'
           }}
         >
-          <Text style={{ color: colors.text }}>Sync Now</Text>
+          <ThemedText style={{ color: colors.text }}>Sync Now</ThemedText>
         </TouchableOpacity>
       </GlassCard>
     </ScrollView>
