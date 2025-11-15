@@ -26,7 +26,10 @@
     "react-native-svg": "13.9.0",
     "expo-font": "~11.4.0",
     "expo-local-authentication": "~13.3.1",
-    "expo-constants": "~14.4.2"
+    "expo-constants": "~14.4.2",
+    "@expo-google-fonts/orbitron": "^0.2.3",
+    "@expo-google-fonts/rajdhani": "^0.2.3",
+    "@expo-google-fonts/share-tech-mono": "^0.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",

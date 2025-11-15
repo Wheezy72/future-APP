@@ -1,15 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useFonts as useGFonts } from '@expo-google-fonts/orbitron';
+import { Orbitron_400Regular } from '@expo-google-fonts/orbitron';
+import { useFonts as useGFontsRaj } from '@expo-google-fonts/rajdhani';
+import { Rajdhani_400Regular } from '@expo-google-fonts/rajdhani';
+import { useFonts as useGFontsSTM } from '@expo-google-fonts/share-tech-mono';
+import { ShareTechMono_400Regular } from '@expo-google-fonts/share-tech-mono';
 
-/**
- * Use system fonts to avoid bundling local binaries.
- * You can later integrate @expo-google-fonts or add local assets.
- */
 export default function useFonts() {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
-  return loaded;
+  const [orbitronLoaded] = useGFonts({ Orbitron: Orbitron_400Regular });
+  const [rajdhaniLoaded] = useGFontsRaj({ Rajdhani: Rajdhani_400Regular });
+  const [stmLoaded] = useGFontsSTM({ ShareTechMono: ShareTechMono_400Regular });
+  return orbitronLoaded && rajdhaniLoaded && stmLoaded;
 }

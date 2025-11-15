@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useTheme } from '../../src/constants/theme';
 import GlassCard from '../../src/components/GlassCard';
-import PaperTexture from '../../src/components/PaperTexture';
 import {
   listGoals,
   addGoal,
@@ -12,7 +11,6 @@ import {
 } from '../../src/services/goalsJournal';
 import * as ImagePicker from 'expo-image-picker';
 import * as Haptics from 'expo-haptics';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function GoalsJournal() {
   const { colors } = useTheme();
@@ -136,7 +134,7 @@ export default function GoalsJournal() {
               style={{
                 color: colors.text, backgroundColor: colors.card, borderColor: colors.border,
                 borderWidth: 1, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 10, minHeight: 80,
-                fontFamily: 'Caveat', fontSize: 18
+                fontSize: 16
               }}
             />
             <View style={{ flexDirection: 'row', gap: 8, marginTop: 8, alignItems: 'center' }}>
@@ -200,21 +198,11 @@ export default function GoalsJournal() {
           <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'Rajdhani', marginTop: 14 }}>Journal Entries</Text>
           {entries.map((e) => (
             <GlassCard key={e.id} style={{ marginTop: 10 }}>
-              <PaperTexture />
-              <Text style={{ color: colors.text, fontFamily: 'Caveat', fontSize: 18 }}>{e.text}</Text>
+              <Text style={{ color: colors.text, fontSize: 16 }}>{e.text}</Text>
               <Text style={{ color: colors.subtext, marginTop: 4 }}>{e.mood} — {new Date(e.date).toLocaleString()}</Text>
               {e.imageUri ? (
-                <View style={{ marginTop: 8, alignSelf: 'flex-start', transform: [{ rotate: '-2deg' }] }}>
-                  <View style={{
-                    backgroundColor: '#fff', padding: 4, borderRadius: 4,
-                    shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 6
-                  }}>
-                    <Image source={{ uri: e.imageUri }} style={{ width: 160, height: 120, borderRadius: 2 }} />
-                  </View>
-                  <View style={{
-                    position: 'absolute', top: -6, left: 30, width: 48, height: 12,
-                    backgroundColor: 'rgba(255,255,255,0.7)'
-                  }} />
+                <View style={{ marginTop: 8, alignSelf: 'flex-start' }}>
+                  <Image source={{ uri: e.imageUri }} style={{ width: 160, height: 120, borderRadius: 6 }} />
                 </View>
               ) : null}
             </GlassCard>
