@@ -15,8 +15,7 @@ export default function useFonts() {
           Caveat: require('../../assets/fonts/Caveat-Regular.ttf'),
         });
         if (mounted) setLoaded(true);
-      } catch (e) {
-        // Fallback to system fonts if custom not found
+      } catch {
         setLoaded(true);
       }
     })();
