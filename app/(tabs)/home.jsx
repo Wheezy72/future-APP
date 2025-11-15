@@ -32,16 +32,16 @@ export default function Home() {
 
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <GlassCard>
-          <Text style={{ color: colors.subtext }}>Goals</Text>
-          <Text style={{ color: colors.text, fontSize: 20 }}>{stats.goals}</Text>
+          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Goals</Text>
+          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.goals}</Text>
         </GlassCard>
         <GlassCard>
-          <Text style={{ color: colors.subtext }}>Entries</Text>
-          <Text style={{ color: colors.text, fontSize: 20 }}>{stats.entries}</Text>
+          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Entries</Text>
+          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.entries}</Text>
         </GlassCard>
         <GlassCard>
-          <Text style={{ color: colors.subtext }}>Expenses</Text>
-          <Text style={{ color: colors.text, fontSize: 20 }}>{stats.expenses}</Text>
+          <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Expenses</Text>
+          <Text style={{ color: colors.text, fontSize: 20, fontFamily: 'ShareTechMono' }}>{stats.expenses}</Text>
         </GlassCard>
       </View>
 

@@ -49,9 +49,9 @@ export default function Settings() {
       </View>
 
       <GlassCard style={{ marginHorizontal: 16 }}>
-        <Text style={{ color: colors.subtext }}>Security</Text>
+        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Security</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
-          <Text style={{ color: colors.text }}>Biometrics</Text>
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>Biometrics</Text>
           <Switch
             value={bioEnabled}
             onValueChange={async (v) => {
@@ -87,9 +87,9 @@ export default function Settings() {
       </GlassCard>
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>
-        <Text style={{ color: colors.subtext }}>Cloud Sync</Text>
+        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Cloud Sync</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
-          <Text style={{ color: colors.text }}>Enabled</Text>
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>Enabled</Text>
           <Switch
             value={cloudEnabled}
             onValueChange={(v) => setCloudEnabled(v)}
@@ -132,7 +132,7 @@ export default function Settings() {
       </GlassCard>
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16 }}>
-        <Text style={{ color: colors.subtext }}>Backup</Text>
+        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Backup</Text>
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
           <TouchableOpacity
             onPress={async () => {

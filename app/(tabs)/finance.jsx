@@ -133,7 +133,7 @@ export default function Finance() {
           </Text>
 
           <GlassCard>
-            <Text style={{ color: colors.subtext, marginBottom: 8 }}>Add Expense</Text>
+            <Text style={{ color: colors.subtext, marginBottom: 8, fontFamily: 'Rajdhani' }}>Add Expense</Text>
             <View style={{ flexDirection: 'row', gap: 8 }}>
               <TextInput
                 placeholder="Amount"
@@ -208,7 +208,7 @@ export default function Finance() {
                     borderWidth: 1, borderColor: category === c ? colors.accent : colors.border
                   }}
                 >
-                  <Text style={{ color: category === c ? colors.accent : colors.text }}>{c}</Text>
+                  <Text style={{ color: category === c ? colors.accent : colors.text, fontFamily: 'Rajdhani' }}>{c}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -224,7 +224,7 @@ export default function Finance() {
               const pct = Math.min(100, Math.round((spent / amt) * 100));
               return (
                 <View key={cat} style={{ marginVertical: 6 }}>
-                  <Text style={{ color: colors.text }}>{cat}: {spent.toFixed(2)} / {amt.toFixed(2)}</Text>
+                  <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{cat}: <Text style={{ fontFamily: 'ShareTechMono', color: colors.text }}>{spent.toFixed(2)}</Text> / <Text style={{ fontFamily: 'ShareTechMono', color: colors.text }}>{amt.toFixed(2)}</Text></Text>
                   <View style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, overflow: 'hidden', marginTop: 4 }}>
                     <View style={{ width: `${pct}%`, height: 8, backgroundColor: colors.accent }} />
                   </View>
@@ -234,15 +234,15 @@ export default function Finance() {
           </GlassCard>
 
           <GlassCard style={{ marginTop: 16 }}>
-            <Text style={{ color: colors.subtext, marginBottom: 6 }}>Analytics</Text>
-            <Text style={{ color: colors.text }}>By Category</Text>
+            <Text style={{ color: colors.subtext, marginBottom: 6, fontFamily: 'Rajdhani' }}>Analytics</Text>
+            <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>By Category</Text>
             <BarChart
               data={categoryTotals.map((c) => ({ label: c.category, value: c.value }))}
               width={320}
               height={120}
               color={colors.accent}
             />
-            <Text style={{ color: colors.text, marginTop: 8 }}>Monthly Trend</Text>
+            <Text style={{ color: colors.text, marginTop: 8, fontFamily: 'Rajdhani' }}>Monthly Trend</Text>
             <BarChart
               data={monthlyTrend.map((m) => ({ label: m.label, value: m.value }))}
               width={320}
@@ -258,12 +258,12 @@ export default function Finance() {
         <GlassCard style={{ marginTop: 10 }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <View>
-              <Text style={{ color: colors.text, fontSize: 16 }}>{item.category}</Text>
-              <Text style={{ color: colors.subtext, fontSize: 12 }}>{new Date(item.date).toLocaleString()}</Text>
-              {item.note ? <Text style={{ color: colors.subtext, marginTop: 4 }}>{item.note}</Text> : null}
+              <Text style={{ color: colors.text, fontSize: 16, fontFamily: 'Rajdhani' }}>{item.category}</Text>
+              <Text style={{ color: colors.subtext, fontSize: 12, fontFamily: 'Rajdhani' }}>{new Date(item.date).toLocaleString()}</Text>
+              {item.note ? <Text style={{ color: colors.subtext, marginTop: 4, fontFamily: 'Rajdhani' }}>{item.note}</Text> : null}
             </View>
             <View style={{ alignItems: 'flex-end' }}>
-              <Text style={{ color: colors.text, fontSize: 18 }}>{item.amount.toFixed(2)}</Text>
+              <Text style={{ color: colors.text, fontSize: 18, fontFamily: 'ShareTechMono' }}>{item.amount.toFixed(2)}</Text>
               <TouchableOpacity onPress={() => onDeleteExpense(item.id)} style={{ marginTop: 8 }}>
                 <Ionicons name="trash" size={18} color={colors.danger} />
               </TouchableOpacity>

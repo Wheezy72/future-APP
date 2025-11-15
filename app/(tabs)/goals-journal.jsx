@@ -176,8 +176,12 @@ export default function GoalsJournal() {
         const pct = Math.min(100, Math.round((item.progress / item.target) * 100));
         return (
           <GlassCard style={{ marginTop: 10 }}>
-            <Text style={{ color: colors.text }}>{item.title}</Text>
-            <Text style={{ color: colors.subtext }}>{item.progress} / {item.target}</Text>
+            <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{item.title}</Text>
+            <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>
+              <Text style={{ fontFamily: 'ShareTechMono', color: colors.subtext }}>{item.progress}</Text>
+              {' '} / {' '}
+              <Text style={{ fontFamily: 'ShareTechMono', color: colors.subtext }}>{item.target}</Text>
+            </Text>
             <View style={{ height: 8, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: 6, overflow: 'hidden', marginTop: 4 }}>
               <View style={{ width: `${pct}%`, height: 8, backgroundColor: colors.success }} />
             </View>

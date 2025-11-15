@@ -45,8 +45,8 @@ export default function NotificationsCenter() {
       }
       renderItem={({ item }) => (
         <GlassCard style={{ marginTop: 10 }}>
-          <Text style={{ color: colors.text }}>{item.content?.title || 'Reminder'}</Text>
-          <Text style={{ color: colors.subtext }}>{item.identifier}</Text>
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>{item.content?.title || 'Reminder'}</Text>
+          <Text style={{ color: colors.subtext, fontFamily: 'ShareTechMono' }}>{item.identifier}</Text>
           <TouchableOpacity
             onPress={async () => {
               await cancelScheduled(item.identifier);

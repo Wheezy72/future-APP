@@ -18,7 +18,7 @@ export default function Startup() {
   return (
     <View style={{ flex: 1, backgroundColor: '#0b0f14', alignItems: 'center', justifyContent: 'center' }}>
       <Ionicons name="planet" size={64} color="#00e0ff" />
-      <Text style={{ color: '#cde0ff', marginTop: 12, fontSize: 18, fontWeight: '600' }}>
+      <Text style={{ color: '#cde0ff', marginTop: 12, fontSize: 20, fontFamily: 'Orbitron' }}>
         Future
       </Text>
       <ActivityIndicator color="#00e0ff" style={{ marginTop: 16 }} />

@@ -63,7 +63,7 @@ export default function Wellness() {
         <Text style={{ color: colors.text, fontSize: 22, fontFamily: 'Orbitron' }}>Wellness</Text>
       </View>
       <GlassCard style={{ marginHorizontal: 16 }}>
-        <Text style={{ color: colors.subtext }}>Mood</Text>
+        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Mood</Text>
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
           {['🙂', '😌', '😔', '😡', '😴'].map((m) => (
             <TouchableOpacity
@@ -75,7 +75,7 @@ export default function Wellness() {
                 borderWidth: 1, borderColor: mood === m ? colors.accent : colors.border
               }}
             >
-              <Text style={{ color: mood === m ? colors.accent : colors.text }}>{m}</Text>
+              <Text style={{ color: mood === m ? colors.accent : colors.text, fontFamily: 'Rajdhani' }}>{m}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -86,12 +86,12 @@ export default function Wellness() {
             paddingVertical: 10, alignItems: 'center'
           }}
         >
-          <Text style={{ color: colors.text }}>Log Mood</Text>
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>Log Mood</Text>
         </TouchableOpacity>
       </GlassCard>
 
       <GlassCard style={{ marginHorizontal: 16, marginTop: 16, alignItems: 'center' }}>
-        <Text style={{ color: colors.subtext }}>Mindfulness Timer (Visual)</Text>
+        <Text style={{ color: colors.subtext, fontFamily: 'Rajdhani' }}>Mindfulness Timer (Visual)</Text>
         <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
           {[
             { id: 'box', label: 'Box 4-4-4-4' },

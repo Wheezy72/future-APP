@@ -128,7 +128,7 @@ export default function PinEntry() {
           }}
         >
           <Ionicons name="finger-print" size={20} color={colors.accent} />
-          <Text style={{ color: colors.text }}>
+          <Text style={{ color: colors.text, fontFamily: 'Rajdhani' }}>
             Unlock with Biometrics
           </Text>
         </TouchableOpacity>
